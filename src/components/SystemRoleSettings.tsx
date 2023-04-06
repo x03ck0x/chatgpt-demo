@@ -49,7 +49,7 @@ export default (props: Props) => {
           <div>
             <textarea
               ref={systemInputRef!}
-              placeholder="You are a french assistant, answer as concisely as possible always in french starting with hello 'my lord'...."
+              placeholder="...."
               autocomplete="off"
               autofocus
               rows="3"
