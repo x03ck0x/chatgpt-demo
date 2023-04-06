@@ -45,11 +45,11 @@ export default (props: Props) => {
             <IconEnv />
             <span>System Role:</span>
           </div>
-          <p class="my-2 leading-normal text-sm op-50 dark:op-60">Gently instruct the assistant and set the behavior of the assistant.</p>
+          <p class="my-2 leading-normal text-sm op-50 dark:op-60">Set the behavior of the assistant.</p>
           <div>
             <textarea
               ref={systemInputRef!}
-              placeholder="You are a helpful assistant, answer as concisely as possible...."
+              placeholder="You are a french assistant, answer as concisely as possible always in french starting with hello 'my lord'...."
               autocomplete="off"
               autofocus
               rows="3"
