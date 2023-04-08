@@ -1,4 +1,4 @@
-import { Show } from 'solid-js'
+import { Show, createSignal } from 'solid-js'
 import type { Accessor, Setter } from 'solid-js'
 import IconEnv from './icons/Env'
 
@@ -11,16 +11,19 @@ interface Props {
 }
 
 export default (props: Props) => {
-  let systemSelectRef: HTMLSelectElement
+  let systemInputRef: HTMLTextAreaElement
+  let systemBehaviorRef: HTMLSelectElement
+
+  const [selectedSystemBehavior, setSelectedSystemBehavior] = createSignal('')
 
   const handleButtonClick = () => {
-    props.setCurrentSystemRoleSettings(systemSelectRef.value)
+    props.setCurrentSystemRoleSettings(systemInputRef.value)
     props.setSystemRoleEditing(false)
   }
 
-  const handleSelectChange = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
-    systemSelectRef.value = target.value;
+  const handleSystemBehaviorChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement
+    setSelectedSystemBehavior(target.value)
   }
 
   return (
@@ -34,9 +37,20 @@ export default (props: Props) => {
           </div>
           <p class="my-2 leading-normal text-sm op-50 dark:op-60">Set the behavior of the assistant.</p>
           <div>
+            <textarea
+              ref={systemInputRef!}
+              placeholder="...."
+              autocomplete="off"
+              autofocus
+              rows="3"
+              gen-textarea
+            />
+          </div>
+          <div>
             <select
-              ref={systemSelectRef!}
-              onChange={handleSelectChange}
+              ref={systemBehaviorRef!}
+              value={selectedSystemBehavior()}
+              onChange={handleSystemBehaviorChange}
               gen-select
             >
               <option value="">Select a system behavior</option>
