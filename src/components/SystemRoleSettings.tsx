@@ -1,6 +1,7 @@
 import { Show, createSignal, For } from 'solid-js'
 import type { Accessor, Setter } from 'solid-js'
 import IconEnv from './icons/Env'
+import { predefinedPrompts } from './predefinedPrompts' // Import predefined prompts
 
 interface Props {
   canEdit: Accessor<boolean>
@@ -12,16 +13,6 @@ interface Props {
 
 export default (props: Props) => {
   let systemInputRef: HTMLTextAreaElement
-
-const [predefinedPrompts] = createSignal({
-  prompt1: 'Prompt 1',
-  prompt2: 'Prompt 2',
-  prompt3: 'Prompt 3',
-  // Add more predefined prompts here
-})
-const handlePromptClick = (prompt: string) => {
-  systemInputRef.value = prompt
-}
 
   const handleButtonClick = () => {
     props.setCurrentSystemRoleSettings(systemInputRef.value)
@@ -42,12 +33,17 @@ const handlePromptClick = (prompt: string) => {
               <span>System Role:</span>
             </div>
             <div class="mt-1">
-              { props.currentSystemRoleSettings() }
+              {props.currentSystemRoleSettings()}
             </div>
           </div>
         </Show>
         <Show when={!props.currentSystemRoleSettings() && props.canEdit()}>
-          <span onClick={() => props.setSystemRoleEditing(!props.systemRoleEditing())} class="sys-edit-btn">
+          <span
+            onClick={() =>
+              props.setSystemRoleEditing(!props.systemRoleEditing())
+            }
+            class="sys-edit-btn"
+          >
             <IconEnv />
             <span>Add System Role</span>
           </span>
@@ -59,7 +55,9 @@ const handlePromptClick = (prompt: string) => {
             <IconEnv />
             <span>System Role:</span>
           </div>
-          <p class="my-2 leading-normal text-sm op-50 dark:op-60">Set the behavior of the assistant.</p>
+          <p class="my-2 leading-normal text-sm op-50 dark:op-60">
+            Set the behavior of the assistant.
+          </p>
           <div>
             <textarea
               ref={systemInputRef!}
@@ -71,18 +69,18 @@ const handlePromptClick = (prompt: string) => {
             />
           </div>
           {/* Add this section to display the predefined prompts list */}
-     <div class="predefined-prompts">
-  <For each={Object.entries(predefinedPrompts())}>
-    {([variableName, prompt]) => (
-      <div
-        onClick={() => handlePromptClick(prompt)}
-        class="predefined-prompt-item"
-      >
-        {variableName}
-      </div>
-    )}
-  </For>
-</div>
+          <div class="predefined-prompts">
+            <For each={Object.entries(predefinedPrompts)}>
+              {([variableName, prompt]) => (
+                <div
+                  onClick={() => handlePromptClick(prompt)}
+                  class="predefined-prompt-item"
+                >
+                  {variableName}
+                </div>
+              )}
+            </For>
+          </div>
           <button onClick={handleButtonClick} gen-slate-btn>
             Set
           </button>
