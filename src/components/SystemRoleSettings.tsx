@@ -13,12 +13,15 @@ interface Props {
 export default (props: Props) => {
   let systemInputRef: HTMLTextAreaElement
 
-  const [predefinedPrompts] = createSignal([
-    'Prompt 1',
-    'Prompt 2',
-    'Prompt 3',
-    // Add more predefined prompts here
-  ])
+const [predefinedPrompts] = createSignal({
+  prompt1: 'Prompt 1',
+  prompt2: 'Prompt 2',
+  prompt3: 'Prompt 3',
+  // Add more predefined prompts here
+})
+const handlePromptClick = (prompt: string) => {
+  systemInputRef.value = prompt
+}
 
   const handleButtonClick = () => {
     props.setCurrentSystemRoleSettings(systemInputRef.value)
@@ -68,18 +71,18 @@ export default (props: Props) => {
             />
           </div>
           {/* Add this section to display the predefined prompts list */}
-          <div class="predefined-prompts">
-            <For each={predefinedPrompts()}>
-              {(prompt) => (
-                <div
-                  onClick={() => handlePromptClick(prompt)}
-                  class="predefined-prompt-item"
-                >
-                  {prompt}
-                </div>
-              )}
-            </For>
-          </div>
+     <div class="predefined-prompts">
+  <For each={Object.entries(predefinedPrompts())}>
+    {([variableName, prompt]) => (
+      <div
+        onClick={() => handlePromptClick(prompt)}
+        class="predefined-prompt-item"
+      >
+        {variableName}
+      </div>
+    )}
+  </For>
+</div>
           <button onClick={handleButtonClick} gen-slate-btn>
             Set
           </button>
