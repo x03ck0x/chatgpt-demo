@@ -1,5 +1,5 @@
 export const predefinedPrompts = {
-    prompt_SEO_kw: 'Please provide 10-15 semantically-related SEO keywords to the input given, those keywords will be efficient for google and seo practice in general',
+    prompt_SEO_kw: 'Please provide 10-15 semantically-related SEO keywords to the input given, those keywords will be efficient for google and seo practice in general, only reply the keywords list, and nothing else.',
     prompt_SEO_Titles: 'Please provide 10 ideas for page titles that would be both optimized for SEO and would be attractive to the user',
     prompt_wiki: 'I want you to act as a Wikipedia page. I will give you the name of a topic, and you will provide a summary of that topic in the format of a Wikipedia page. Your summary should be informative and factual, covering the most important aspects of the topic. Start your summary with an introductory paragraph that gives an overview of the topic.',
     prompt_Domain_Gen: 'I want you to act as a smart domain name generator. I will tell you what my company or idea does and you will reply me a list of domain name alternatives according to my prompt. You will only reply the domain list, and nothing else. Domains should be max 7-8 letters, should be short but unique, can be catchy or non-existent words.',
