@@ -11,34 +11,21 @@ interface Props {
 }
 
 export default (props: Props) => {
-  let systemInputRef: HTMLTextAreaElement
+  let systemSelectRef: HTMLSelectElement
 
   const handleButtonClick = () => {
-    props.setCurrentSystemRoleSettings(systemInputRef.value)
+    props.setCurrentSystemRoleSettings(systemSelectRef.value)
     props.setSystemRoleEditing(false)
+  }
+
+  const handleSelectChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement;
+    systemSelectRef.value = target.value;
   }
 
   return (
     <div class="my-4">
-      <Show when={!props.systemRoleEditing()}>
-        <Show when={props.currentSystemRoleSettings()}>
-          <div>
-            <div class="fi gap-1 op-50 dark:op-60">
-              <IconEnv />
-              <span>System Role:</span>
-            </div>
-            <div class="mt-1">
-              { props.currentSystemRoleSettings() }
-            </div>
-          </div>
-        </Show>
-        <Show when={!props.currentSystemRoleSettings() && props.canEdit()}>
-          <span onClick={() => props.setSystemRoleEditing(!props.systemRoleEditing())} class="sys-edit-btn">
-            <IconEnv />
-            <span>Add System Role</span>
-          </span>
-        </Show>
-      </Show>
+      {/* ... */}
       <Show when={props.systemRoleEditing() && props.canEdit()}>
         <div>
           <div class="fi gap-1 op-50 dark:op-60">
@@ -47,14 +34,17 @@ export default (props: Props) => {
           </div>
           <p class="my-2 leading-normal text-sm op-50 dark:op-60">Set the behavior of the assistant.</p>
           <div>
-            <textarea
-              ref={systemInputRef!}
-              placeholder="...."
-              autocomplete="off"
-              autofocus
-              rows="3"
-              gen-textarea
-            />
+            <select
+              ref={systemSelectRef!}
+              onChange={handleSelectChange}
+              gen-select
+            >
+              <option value="">Select a system behavior</option>
+              <option value="Behavior 1">Behavior 1</option>
+              <option value="Behavior 2">Behavior 2</option>
+              <option value="Behavior 3">Behavior 3</option>
+              {/* Add more options for system behaviors here */}
+            </select>
           </div>
           <button onClick={handleButtonClick} gen-slate-btn>
             Set
