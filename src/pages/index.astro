@@ -28,7 +28,6 @@ import 'highlight.js/styles/atom-one-dark.css'
 
     if (enteredPassword !== authPassword) {
       alert('Authentication failed. Please enter the correct password.');
-      window.location.href = '/login2'; // Redirect to the login page on authentication failure
     } else {
       localStorage.setItem('authenticated', 'true');
     }
