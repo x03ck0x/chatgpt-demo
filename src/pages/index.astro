@@ -18,18 +18,58 @@ import 'highlight.js/styles/atom-one-dark.css'
   </main>
 </Layout>
 
+<style>
+  /* Style for the background overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .prompt-container {
+    background-color: #fff; /* White background for the prompt */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+</style>
+
+<div class="overlay" id="overlay">
+  <div class="prompt-container">
+    <label for="password_input">Enter the password:</label>
+    <input id="password_input" type="password" class="gpt-password-input" />
+    <br />
+    <button id="submit" class="gpt-password-submit">Submit</button>
+  </div>
+</div>
+
 <script>
-  // Check if the user is authenticated.
   const authenticated = localStorage.getItem('authenticated');
 
   if (authenticated !== 'true') {
-    const enteredPassword = prompt('Enter the password:');
-    const authPassword = import.meta.env.AUTH_PASSWORD; // Access the environment variable
+    // Display the password prompt and overlay
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'flex';
 
-    if (enteredPassword !== authPassword) {
-      alert('Authentication failed. Please enter the correct password.');
-    } else {
-      localStorage.setItem('authenticated', 'true');
-    }
+    const passwordInput = document.getElementById('password_input');
+    const submitButton = document.getElementById('submit');
+    const authPassword = import.meta.env.AUTH_PASSWORD;
+
+    submitButton.addEventListener('click', () => {
+      const enteredPassword = passwordInput.value;
+
+      if (enteredPassword !== authPassword) {
+        alert('Authentication failed. Please enter the correct password.');
+      } else {
+        localStorage.setItem('authenticated', 'true');
+        overlay.style.display = 'none'; // Hide the overlay on successful authentication
+      }
+    });
   }
 </script>
