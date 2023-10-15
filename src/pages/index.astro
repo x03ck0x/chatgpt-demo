@@ -25,9 +25,15 @@ async function checkCurrentAuth() {
 
   if (userEnteredPassword !== authPassword) {
     window.location.href = '/password';
+  } else {
+    sessionStorage.setItem('authenticated', 'true'); // Store authentication status
   }
 }
-checkCurrentAuth();
+
+// Check authentication status
+if (sessionStorage.getItem('authenticated') !== 'true') {
+  checkCurrentAuth();
+}
 </script>
 
 
