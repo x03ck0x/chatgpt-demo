@@ -18,3 +18,10 @@ import 'highlight.js/styles/atom-one-dark.css'
   </main>
 </Layout>
 
+<script>
+  // Check if the user is authenticated, and if not, redirect to the password page.
+  const authenticated = localStorage.getItem('pass');
+  if (!authenticated) {
+    window.location.href = '/password.astro';
+  }
+</script>
