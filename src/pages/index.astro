@@ -21,15 +21,16 @@ import 'highlight.js/styles/atom-one-dark.css'
 <script>
 async function checkCurrentAuth() {
   const authPassword = process.env.AUTH_PASSWORD; // Get the password from the environment variable
-  const authenticated = sessionStorage.getItem('authenticated'); // Check if user is authenticated
+  const authenticated = sessionStorage.getItem('authenticated'); // Check if the user is authenticated
 
   if (authenticated !== 'true') {
     const userEnteredPassword = prompt('Enter your password:'); // Prompt the user for the password
 
-    if (userEnteredPassword === authPassword) {
-      sessionStorage.setItem('authenticated', 'true'); // Store authentication status
+    if (userEnteredPassword !== authPassword) {
+      alert('Authentication failed. Please enter the correct password.'); // Show an alert for authentication failure
+      checkCurrentAuth(); // Re-prompt the user
     } else {
-      window.location.href = '/password'; // Redirect to the password page if the password is incorrect
+      sessionStorage.setItem('authenticated', 'true'); // Store authentication status
     }
   }
 }
