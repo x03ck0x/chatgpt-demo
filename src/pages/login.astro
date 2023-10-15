@@ -1,0 +1,21 @@
+<!-- login.astro -->
+<form id="login-form">
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const password = document.getElementById('password').value;
+    const authPassword = process.env.AUTH_PASSWORD; // Get the password from the environment variable
+
+    if (password === authPassword) {
+      // Redirect to index.astro if the password is correct
+      window.location.href = '/index.astro';
+    } else {
+      alert('Authentication failed. Please enter the correct password.');
+    }
+  });
+</script>
