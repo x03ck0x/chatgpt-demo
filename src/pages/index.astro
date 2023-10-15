@@ -19,17 +19,18 @@ import 'highlight.js/styles/atom-one-dark.css'
 </Layout>
 
 <script>
-  // Check if the user is authenticated, and if not, prompt for a password.
+  // Check if the user is authenticated.
   const authenticated = localStorage.getItem('authenticated');
 
   if (authenticated !== 'true') {
-    let enteredPassword;
+    const enteredPassword = prompt('Enter the password:');
     const authPassword = import.meta.env.AUTH_PASSWORD; // Access the environment variable
 
-    do {
-      enteredPassword = prompt('Enter the password:');
-    } while (enteredPassword !== authPassword);
-
-    localStorage.setItem('authenticated', 'true');
+    if (enteredPassword !== authPassword) {
+      alert('Authentication failed. Please enter the correct password.');
+      window.location.href = '/login2'; // Redirect to the login page on authentication failure
+    } else {
+      localStorage.setItem('authenticated', 'true');
+    }
   }
 </script>
