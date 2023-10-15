@@ -21,14 +21,15 @@ import 'highlight.js/styles/atom-one-dark.css'
 <script>
   // Check if the user is authenticated, and if not, prompt for a password.
   const authenticated = localStorage.getItem('authenticated');
+
   if (authenticated !== 'true') {
-    const enteredPassword = prompt('Enter the password:');
+    let enteredPassword;
     const authPassword = 'your_password'; // Replace with your actual password
 
-    if (enteredPassword !== authPassword) {
-      alert('Authentication failed. Please enter the correct password.');
-    } else {
-      localStorage.setItem('authenticated', 'true');
-    }
+    do {
+      enteredPassword = prompt('Enter the password:');
+    } while (enteredPassword !== authPassword);
+
+    localStorage.setItem('authenticated', 'true');
   }
 </script>
