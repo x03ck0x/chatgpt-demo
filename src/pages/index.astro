@@ -1,4 +1,4 @@
-<!-- login.astro -->
+<!-- index.astro -->
 <form id="login-form">
   <label for="password">Password:</label>
   <input type="password" id="password" name="password" required>
@@ -10,6 +10,8 @@
     event.preventDefault();
     const password = document.getElementById('password').value;
     const authPassword = process.env.AUTH_PASSWORD; // Get the password from the environment variable
+      console.log('Entered Password:', password);
+      console.log('Auth Password:', authPassword);
 
     if (password === authPassword) {
       // Redirect to index.astro if the password is correct
@@ -18,7 +20,6 @@
       alert('Authentication failed. Please enter the correct password.');
     }
   });
-console.log('Entered Password:', password);
-console.log('Auth Password:', authPassword);
+
 </script>
 
