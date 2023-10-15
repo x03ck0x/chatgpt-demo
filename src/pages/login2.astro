@@ -1,26 +1,64 @@
-<!-- index.astro -->
-<form id="login-form">
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required>
-  <button type="submit">Login</button>
-</form>
+<!-- password.astro -->
+<Layout title="Password Protection">
+  <main class="h-screen col-fcc">
+    <div class="op-30">Please input the password</div>
+    <div id="input_container" class="flex mt-4">
+      <input id="password_input" type="password" class="gpt-password-input" />
+      <div id="submit" class="gpt-password-submit">
+        <div class="i-carbon-arrow-right" />
+      </div>
+    </div>
+  </main>
+</Layout>
 
 <script>
-  async function checkCurrentAuth() {
+  const inputContainer = document.getElementById('input_container') as HTMLDivElement;
+  const input = document.getElementById('password_input') as HTMLInputElement;
+  const submitButton = document.getElementById('submit') as HTMLDivElement;
+
+  input.onkeydown = async (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+  submitButton.onclick = handleSubmit;
+
+  async function handleSubmit() {
+    const password = input.value;
     const authPassword = import.meta.env.AUTH_PASSWORD; // Get the password from the environment variable
-    const authenticated = sessionStorage.getItem('authenticated'); // Check if the user is authenticated
-
-    if (authenticated !== 'true') {
-      const userEnteredPassword = prompt('Enter your password:'); // Prompt the user for the password
-
-      if (userEnteredPassword === authPassword) {
-        sessionStorage.setItem('authenticated', 'true'); // Store authentication status
-        window.location.href = '/index2.astro'; // Redirect to index.astro if the password is correct
-      } else {
-        alert('Authentication failed. Please enter the correct password.');
-      }
+  
+    if (password === authPassword) {
+      // Correct password
+      localStorage.setItem('authenticated', 'true');
+      window.location.href = '/';
+    } else {
+      // Incorrect password
+      inputContainer.classList.add('invalid');
+      setTimeout(() => {
+        inputContainer.classList.remove('invalid');
+      }, 300);
     }
   }
 
-  checkCurrentAuth();
 </script>
+
+<style>
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(0.5rem);
+    }
+    75% {
+      transform: translateX(-0.5rem);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .invalid {
+    animation: shake 0.2s ease-in-out 0s 2;
+  }
+</style>
