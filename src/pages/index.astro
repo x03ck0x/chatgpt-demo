@@ -26,17 +26,18 @@ async function checkCurrentAuth() {
   if (authenticated !== 'true') {
     const userEnteredPassword = prompt('Enter your password:'); // Prompt the user for the password
 
-    if (userEnteredPassword !== authPassword) {
+    if (userEnteredPassword === authPassword) {
+      sessionStorage.setItem('authenticated', 'true'); // Store authentication status
+    } else {
       alert('Authentication failed. Please enter the correct password.'); // Show an alert for authentication failure
       checkCurrentAuth(); // Re-prompt the user
-    } else {
-      sessionStorage.setItem('authenticated', 'true'); // Store authentication status
     }
   }
 }
 
 checkCurrentAuth();
 </script>
+
 
 
 
