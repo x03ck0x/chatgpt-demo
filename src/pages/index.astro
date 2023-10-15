@@ -24,7 +24,7 @@ import 'highlight.js/styles/atom-one-dark.css'
 
   if (authenticated !== 'true') {
     let enteredPassword;
-    const authPassword = 'your_password'; // Replace with your actual password
+    const authPassword = import.meta.env.AUTH_PASSWORD; // Access the environment variable
 
     do {
       enteredPassword = prompt('Enter the password:');
